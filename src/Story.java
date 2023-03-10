@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Random;
 
 public class Story {
@@ -27,16 +28,39 @@ public class Story {
        System.out.println("Chapter 1 : The Philosopher's Stone");
        GameLogic.printSeparator(30);
        System.out.println("During your first day at school, you learned a new spell called 'Wingardium Leviosa' !");
-
        GameLogic.anythingtoContinue();
 
    }
    public static void printSecondChapter(){
+       GameLogic.clearConsole();
+       GameLogic.printSeparator(30);
+       System.out.println("Chapter 2 : The Chamber of Secret");
+       GameLogic.printSeparator(30);
+       System.out.println("Mr.Flitwick showed you a whole new spell called 'Accio'. Use it to grab objects next to you ! ");
+       GameLogic.anythingtoContinue();
        
     }
     public static void printThirdChapter() {
+       GameLogic.clearConsole();
+       GameLogic.printSeparator(30);
+       System.out.println("Chapter 3 : The Prisoner of Azkaban and AVADA KABRA");
+       GameLogic.printSeparator(30);
+       System.out.println("This your 3rd year at Hogwarts and some strange creatures are supervising the school.");
+       System.out.println("At the end of the Defence Against the Dark Art course, Mr.Lupin show you in secret the spell 'Expecto Patronum' ");
+       GameLogic.printSeparator(30);
+       GameLogic.clearConsole();
+       System.out.println("However you're still unable to properly control it !");
+       GameLogic.anythingtoContinue();
+
     }
     public static void printFourthChapter() {
+       GameLogic.clearConsole();
+       GameLogic.printSeparator(30);
+       System.out.println("Chapter 4 : The Goblet of Fire");
+       GameLogic.printSeparator(30);
+       System.out.println("A new year begin, ");
+
+
     }
     public static void printFithChapter() {
     }

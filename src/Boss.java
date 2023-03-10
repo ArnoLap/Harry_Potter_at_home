@@ -15,7 +15,7 @@ public class Boss extends AbstractEnemy {
     public int defend(){
         return (int) (Math.random()*(playerXp/4 + 1) + xp/4 +3);}
 
-    public static String[] boss = {"Troll", "Basilic", "Ombrage", "Belatrix", "Voldemort"};
+    public static String[] boss = {"Troll", "Basilic", " Dementors ", "Ombrage", "Belatrix", "Voldemort"};
 }
 
 

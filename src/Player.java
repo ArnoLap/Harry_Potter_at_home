@@ -12,7 +12,7 @@ public class Player extends Characters{
         super(name,100,0);
         this.numAtkUpgrades=0;
         this.numDefUpgrades= 0;
-        this.gold = 5;
+        this.gold = 20;
         this.restleft = 1;
         this.pots = 0;
         this.spells = 0;

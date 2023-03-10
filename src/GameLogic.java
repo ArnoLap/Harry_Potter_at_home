@@ -96,6 +96,10 @@ public class GameLogic {
         house = new House();
         Story.printFirstChapter();
         Levels.Level1();
+        Story.printSecondChapter();
+        Levels.Level2();
+        Story.printThirdChapter();
+        Levels.Level3();
 
 
         isRunning = true;
@@ -333,6 +337,222 @@ public class GameLogic {
 
         }
     }
+
+    public static void Bossbattle2(Boss enemy) {
+        while (true) {
+            clearConsole();
+            printHeading(enemy.name + "\nHp:" + enemy.hp + "/" + enemy.maxhp);
+            printHeading(player.name + "\nHp" + player.hp + "/" + player.maxhp);
+            if ( enemy.hp < enemy.maxhp/4){
+                clearConsole();
+                printHeading("The Basilic is vulnerable !");
+                anythingtoContinue();
+            }
+            if (House.numHouse == 0){
+                printHeading("A strange glowing sword appeared in front of you, it's the Gryffindor sword !");
+                anythingtoContinue();
+                System.out.println("Choose an action : ");
+                printSeparator(20);
+                System.out.println("(1) Fight\n(2) Use Potion\n(3) Use Gryffindor");
+            }else{
+            printSeparator(20);
+            System.out.println("(1) Fight\n(2) Use Potion\n");}
+            int input = readInt("->", 3);
+            if (input == 1) {
+                System.out.println("Choose a spell : ");
+                printSeparator(20);
+                System.out.println("(1) Wingardium Leviosa");
+                System.out.println("(2) Accio");
+                int input2 = readInt("->", 2);
+                if (input2 == 1) {
+                    Random random = new Random();
+                    int x = random.nextInt(100) + 1;
+                    if (x > 40) {
+                        int dmg = Spell.attackWg() - enemy.defend();
+                        int dmgTook = enemy.attack() - player.defend();
+                        if (dmgTook < 0) {
+                            dmg -= dmgTook / 2;
+                            dmgTook = 0;
+                        }
+                        if (dmg < 0)
+                            dmg = 0;
+                        player.hp -= dmgTook;
+                        enemy.hp -= dmg;
+                        clearConsole();
+                        printHeading("BATTLE");
+                        System.out.println("You touch the " + enemy.name + " with " + Spell.spells[0] + " !");
+                        System.out.println("You dealt " + dmg + " damage to him.");
+                        printSeparator(15);
+                        System.out.println("The " + enemy.name + " dealt " + dmgTook + " damage to you.");
+                        anythingtoContinue();
+                    } else {
+                        int dmgTook = enemy.attack() - player.defend();
+                        if (dmgTook < 0) {
+                            dmgTook = 0;
+                        }
+                        player.hp -= dmgTook;
+                        printHeading("BATTLE");
+                        System.out.println(" You missed your attack on the " + enemy.name + "!");
+                        printSeparator(15);
+                        System.out.println("The " + enemy.name + " dealt " + dmgTook + " damage to you.");
+                        anythingtoContinue();
+                    }
+                }else if (input2 == 2 && enemy.hp > (enemy.maxhp)/4) {
+                    System.out.println("The Basilic is too fast ! You cannot use this spell for now.");
+                    anythingtoContinue();
+                }else if (input2 == 2 && enemy.hp < enemy.maxhp/4){
+                        System.out.println("You tear off from the Basilic one of it's thangs !");
+                        anythingtoContinue();
+                        System.out.println("*Planting the thang into the book* ");
+                        anythingtoContinue();
+                         System.out.println("The Basilic is screaming ! He is defeated !");
+                         enemy.hp=0;
+                         anythingtoContinue();
+                    }}else if (input == 3 && House.numHouse == 0 ){
+                System.out.println("You have decapitated the Basilic !");
+            enemy.hp =0;
+            anythingtoContinue();} else if (input == 2) {
+                clearConsole();
+                if (player.pots > 0 && player.hp < player.maxhp) {
+                    printHeading("Do you want to drink a potion ? (" + player.pots + "left).");
+                    System.out.println("(1) Yes\n(2) No");
+                    input = readInt("->", 2);
+                    if (input == 1) {
+                        player.hp = player.maxhp;
+                        clearConsole();
+                        printHeading("You drank a magic potion.It restored your health back to " + player.maxhp);
+                        anythingtoContinue();
+                    }}else{
+                    printHeading("You don't have any potions or you're at full health");
+                    anythingtoContinue();}}
+                    else {
+                    System.out.println("You don't know other spell !");
+                    anythingtoContinue();}
+                if (player.hp <= 0) {
+                    playerDied();
+                    break;
+                } else if (enemy.hp <= 0) {
+                    clearConsole();
+                    printHeading("You defeated the " + enemy.name + "!");
+                    player.xp += enemy.xp;
+                    System.out.println("You earned " + enemy.xp + " XP !");
+                    boolean addRest = (Math.random() * 5 + 1 <= 2.25);
+                    int goldEarned = (int) (Math.random() * enemy.xp);
+                    if (addRest) {
+                        player.restleft++;
+                        System.out.println("You earned the chance to get an additional rest!");
+                    }
+                    if (goldEarned > 0) {
+                        player.gold += goldEarned;
+                        System.out.println("You collect " + goldEarned + " gold from the " + enemy.name + "'s body");
+                    }
+                    anythingtoContinue();
+                    break;
+                }
+            }
+            }
+
+    public static void Bossbattle3(Boss enemy) {
+        int z = 0;
+        int y = 0;
+        while (true) {
+            clearConsole();
+            printHeading(enemy.name + "\nHp:" + enemy.hp + "/" + enemy.maxhp);
+            printHeading(player.name + "\nHp" + player.hp + "/" + player.maxhp);
+            System.out.println("Choose an action : ");
+            printSeparator(20);
+            printHeading("The dementors are at " + (6-y) + " meters from you !");
+            if (y == 6){ player.hp =0;}
+            System.out.println("(1) Fight\n(2) Use Potion\n");
+            int input = readInt("->", 2);
+            if (input == 1) {
+                System.out.println("Choose a spell : ");
+                printSeparator(20);
+                System.out.println("(1) Wingardium Leviosa\n(2) Accio\n(3) Expecto Patronum ");
+                int input2 = readInt("->", 3);
+                if (input2 == 1 || input2 == 2){
+                    clearConsole();
+                    printHeading("Your spell get through the dementors ! It seems inefficient !");
+                    printHeading("They are closer to you !");
+                    y++;
+                    anythingtoContinue();
+                }
+
+                else if (input2 == 3 && z == 0){
+                    clearConsole();
+                    printHeading("Nothing happens. Continue to stay focus and retry !");
+                    y++;
+                    z++;
+                    anythingtoContinue();}
+
+                else if (input2 == 3 && z ==1){
+                    clearConsole();
+                    printHeading("A weak glow appears at the bottom of your wand. Continue to focus ! ");
+                    y++;
+                    z++;
+                    anythingtoContinue();
+                }else if(input2 == 3 && z == 2){
+                    clearConsole();
+                    printHeading("The glow intensifies ! You're so close !");
+                    y++;
+                    z++;
+                    anythingtoContinue();
+                }else if (input2 ==3 && z == 3){
+                    clearConsole();
+                    printHeading("A spirit dear release from your wand and the dementors run away !");
+                    enemy.hp =0;
+                    anythingtoContinue();
+                }}
+             else if (input == 2) {
+                clearConsole();
+                if (player.pots > 0 && player.hp < player.maxhp) {
+                    printHeading("Do you want to drink a potion ? (" + player.pots + "left).");
+                    System.out.println("(1) Yes\n(2) No");
+                    input = readInt("->", 2);
+                    if (input == 1) {
+                        player.hp = player.maxhp;
+                        clearConsole();
+                        printHeading("You drank a magic potion.It restored your health back to " + player.maxhp);
+                        anythingtoContinue();
+                    }
+
+                }
+                else {
+                    printHeading("You don't have any potions or you're at full health");
+                    anythingtoContinue();
+                }
+
+            }if (player.hp <= 0) {
+                playerDied();
+                break;
+            } else if (enemy.hp <= 0) {
+                clearConsole();
+                printHeading("You defeated the " + enemy.name + "!");
+                player.xp += enemy.xp;
+                System.out.println("You earned " + enemy.xp + " XP !");
+                boolean addRest = (Math.random() * 5 + 1 <= 2.25);
+                int goldEarned = (int) (Math.random() * enemy.xp);
+                if (addRest) {
+                    player.restleft++;
+                    System.out.println("You earned the chance to get an additional rest!");
+                }
+                if (goldEarned > 0) {
+                    player.gold += goldEarned;
+                    System.out.println("You collect " + goldEarned + " gold from the " + enemy.name + "'s body");
+                }
+                anythingtoContinue();
+                break;
+            }
+
+
+        }
+    }
+
+
+
+
+
+
 
     public static void shop() {
         clearConsole();

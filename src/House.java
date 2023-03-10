@@ -1,8 +1,8 @@
 import java.util.Random;
 
  public class House {
-    public  int numHouse;
-    public String[] type = {"Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"};
+    public static int numHouse;
+    public static String[] type = {"Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"};
     public House(){
         chooseHouse();
     }
